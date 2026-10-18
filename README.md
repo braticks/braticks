@@ -1,38 +1,29 @@
-# Braticks · Home Assistant projektai
+# Lietuvos oro pavojus (LT72) – Home Assistant
 
-Integracijos ir dashboard kortos Home Assistant sistemai. Kiekvienas projektas turi savo repozitoriumą, diegimo instrukcijas ir atnaujinimus.
+Neoficiali Home Assistant integracija, kuri skaito [LT72](https://lt72.lt/) skelbiamas oro pavojaus būsenas pagal Lietuvos apskritis. Ši šaka skirta atskiros HACS saugyklos paruošimui.
 
-## Integracijos
-
-| Projektas | Paskirtis |
-| --- | --- |
-| [Žalgiris Matches](https://github.com/braticks/zalgiris_matches) | Žalgirio rungtynių tvarkaraštis ir rezultatai. |
-| [EuroLeague Standings](https://github.com/braticks/euroleague-standings) | Eurolygos turnyrinė lentelė; korta įtraukta į integraciją. |
-| [LKL Standings](https://github.com/braticks/lkl-standings) | LKL turnyrinė lentelė; korta įtraukta į integraciją. |
-| [Meteo.lt](https://github.com/braticks/meteo_lt) | Lietuvos orų duomenys ir prognozės. |
-| [Day LT](https://github.com/braticks/hass-daylt) | Vardadieniai, šventės, saulės laikai ir kita dienos informacija. |
-
-## Kortos
-
-| Projektas | Paskirtis |
-| --- | --- |
-| [Žalgiris Card](https://github.com/braticks/zalgiris-card) | Rungtynės, rezultatas ir artėjantis tvarkaraštis. |
-| [Lietuviška kalendoriaus korta](https://github.com/braticks/ha-lithuanian-date-card) | Lietuviška datos ir kalendoriaus korta. |
-| [Month Calendar Card](https://github.com/braticks/ha-month-calendar-card) | Mėnesio kalendorius su įvykiais ir vizualiu redaktoriumi. |
-| [Threedy](https://github.com/braticks/ha-threedy-card) | 3D spausdintuvo būsenos korta; prižiūrimas fork, šiuo metu beta. |
-| [Eurolygos korta](https://github.com/braticks/euroleague-standings) | Diegiama kartu su EuroLeague Standings integracija. |
-| [LKL korta](https://github.com/braticks/lkl-standings) | Diegiama kartu su LKL Standings integracija. |
+## Funkcijos
+- Apskrities pasirinkimas diegiant integraciją per UI.
+- Apskrities keitimas vėliau per **Configure**.
+- Vienas sensorius „Oro pavojus – <apskritis>“.
+- Būsenos: **Raudona**, **Geltona**, **Geltona po raudonos**, **Balta**, **Nepaskelbta**.
+- Pranešimo laikas, šaltinis, apskritis ir rekomendacija atributuose.
+- Tikrinama kas 60 sekundžių.
 
 ## Diegimas
+Šioje šakoje yra paruoštas atskiro HACS projekto turinys. Atskiroje saugykloje failai turi būti jos šaknyje.
 
-Atidarykite pasirinkto projekto README ir sekite jo HACS diegimo instrukcijas. Projektui, kurio nėra HACS kataloge, pridėkite būtent jo repozitoriumą per **Custom repositories**.
+1. Sukurkite atskirą GitHub saugyklą, pavyzdžiui, `braticks/lt72-air-alert`, ir perkelkite šios šakos failus į naujos saugyklos `main`.
+2. HACS → Custom repositories → naujos saugyklos adresas → **Integration** → Download.
+3. Perkraukite Home Assistant.
+4. Settings → Devices & services → Add integration → **Lietuvos oro pavojus (LT72)**.
+5. Pasirinkite apskritį. Norėdami pakeisti: Integrations → Lietuvos oro pavojus → Configure.
 
-Šis profilis yra bendras projektų katalogas; jo adresas nėra HACS diegimo šaltinis. Visų projektų sujungti į vieną paketą nereikia.
+Kol nėra atskiros saugyklos, galima kopijuoti `custom_components/lt72_air_alert` rankiniu būdu į Home Assistant `config/custom_components/`.
 
-## Pagalba ir pasiūlymai
+## Duomenys ir saugumas
+**Duomenys:** oficiali [LT72](https://lt72.lt/) svetainė. Integracija skaito viešą tituliniame puslapyje rodomą aktyvių pavojų suvestinę; viešos garantuotos API nenaudoja. Jeigu tinklalapio struktūra pasikeis arba jis bus nepasiekiamas, sensorius taps `unavailable`.
 
-Klaidas ir pasiūlymus pateikite atitinkamo projekto **Issues** skiltyje.
+**Nepaskelbta** reiškia, kad tinklalapyje nėra įrašo apie pasirinktą apskritį, o ne tai, kad saugu. **Balta** rodo aiškiai LT72 paskelbtą pavojaus atšaukimą. Kitų sričių perspėjimai neturi būti laikomi pasirinktos apskrities perspėjimais.
 
----
-
-**English:** Home Assistant integrations and dashboard cards. Each project has its own repository, installation guide and updates. Open a project's README for HACS instructions. This profile is a project directory, not a shared HACS installation source.
+Tai nėra oficiali perspėjimo sistema. **Nenaudokite kaip vienintelio pavojaus signalizavimo kanalo.** Vadovaukitės LT-Alert, sirenomis, atsakingų institucijų pranešimais. Pavojaus metu laikykitės [LT72 rekomendacijų](https://lt72.lt/rekomendacijos-oro-pavojaus-atveju/).
